@@ -1,0 +1,2 @@
+"0","base_complète <- inner_join(ent_fr, ent_brevets_10_20, by = ""appln_id"",relationship = ""many-to-many"")"
+"0","base_complète <- inner_join(base_complète, ipc_descriptions, by = ""IPC"")"

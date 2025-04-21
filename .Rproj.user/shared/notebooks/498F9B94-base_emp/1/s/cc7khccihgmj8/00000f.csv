@@ -1,0 +1,10 @@
+"0","# Renommer la colonne entreprise en firm_name"
+"0","base_emp <- base_emp %>%"
+"0","  rename(firm_name = entreprise)"
+"1","[1m[33mError[39m in `rename()`:[22m
+[33m![39m Can't rename columns that don't exist.
+[31m✖[39m Column `entreprise` doesn't exist.
+Backtrace:
+[90m 1. [39mbase_emp %>% rename(firm_name = entreprise)
+[90m 3. [39m[1m[94mdplyr:::rename.data.frame([39m[22m., firm_name = entreprise[1m[94m)[39m[22m
+"

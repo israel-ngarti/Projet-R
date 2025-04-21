@@ -1,0 +1,2 @@
+"0","# Afficher le Wordcloud"
+"0","wordcloud2(wordcloud_data, size = 0.7, color = ""random-light"", backgroundColor = ""white"")"

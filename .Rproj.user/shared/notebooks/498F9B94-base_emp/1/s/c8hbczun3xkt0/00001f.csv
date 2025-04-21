@@ -1,0 +1,2 @@
+"0","# Avoir la liste des entreprises"
+"0","distinct(emp_offers, entreprise, .keep_all = FALSE)"

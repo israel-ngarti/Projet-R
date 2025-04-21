@@ -1,0 +1,6 @@
+"0","ent_fr <- subset(ent_brevets_clean, ent_brevets_clean$ctry==""FR"")"
+"0",""
+"0","ent_brevets_10_20 <- brevets %>%"
+"0","  filter(prio_year >= 2010 & prio_year <= 2020) %>%"
+"0","  mutate(IPC = substr(IPC, 1, 4))"
+"0",""

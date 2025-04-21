@@ -1,0 +1,8 @@
+"0","# 3. Calcul de l'expérience moyenne requise pour chaque entreprise"
+"0","exp_moyenne <- emp_offers_clean %>%"
+"0","  filter(!is.na(experience_requise)) %>%"
+"0","  group_by(entreprise) %>%"
+"0","  summarise(avg_req_exp = mean(experience_requise, na.rm = TRUE), .groups = ""drop"")"
+"0",""
+"0","base_emp <- base_emp %>%"
+"0","  left_join(exp_moyenne, by = ""entreprise"")"

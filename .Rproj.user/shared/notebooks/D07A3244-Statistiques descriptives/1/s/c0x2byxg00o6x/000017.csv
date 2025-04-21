@@ -1,0 +1,4 @@
+"0","# Lecture des fichiers sans afficher les détails des colonnes"
+"0","base_emp <- read_csv(""data/base_emp.csv"", show_col_types = FALSE)"
+"2","Erreur : 'data/base_emp.csv' does not exist in current working directory ('C:/Users/israe/OneDrive/Documents/Projets/Projets M1/R remediation').
+"

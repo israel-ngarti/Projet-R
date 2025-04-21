@@ -1,0 +1,12 @@
+"0","a<- read.table(""C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_A_title_list_20120101.txt"", header = TRUE, sep = ""\t"", fill = TRUE)
+b<- read.table(""C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_B_title_list_20120101.txt"", header = TRUE, sep = ""\t"", fill = TRUE)
+c<- read.table(""C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_C_title_list_20120101.txt"", header = TRUE, sep = ""\t"", fill = TRUE)
+"
+"2","Avis : Fin de fichier (EOF) dans une chaîne de caractères entre guillements"
+"0","d<- read.table(""C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_D_title_list_20120101.txt"", header = TRUE, sep = ""\t"", fill = TRUE)"
+"0","e<- read.table(""C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_E_title_list_20120101.txt"", header = TRUE, sep = ""\t"", fill = TRUE)"
+"0","f<- read.table(""C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_F_title_list_20120101.txt"", header = TRUE, sep = ""\t"", fill = TRUE)"
+"0","g<- read.table(""C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_G_title_list_20120101.txt"", header = TRUE, sep = ""\t"", fill = TRUE)"
+"2","Avis : Fin de fichier (EOF) dans une chaîne de caractères entre guillements"
+"0","h<- read.table(""C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_H_title_list_20120101.txt"", header = TRUE, sep = ""\t"", fill = TRUE)"
+"2","Avis : Fin de fichier (EOF) dans une chaîne de caractères entre guillements"

@@ -1,0 +1,4 @@
+"0","base_emp_inno <- full_join(base_brevets, base_emp, by = ""firm_name"")"
+"0",""
+"0","# Vérification des premières lignes"
+"0","head(base_emp_inno)"

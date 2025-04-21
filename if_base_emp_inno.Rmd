@@ -1,0 +1,29 @@
+---
+title: "base_emp_inno"
+output: html_document
+date: "2024-12-30"
+---
+#MOIELWAY NGARTI ISRAËL
+#FABARIKA TIEBELE KARAMA
+#BARKIRE DOURAMANE MOUSSA
+#ISMAÏL ZAROQ
+
+
+# APPARIEMENT DES DEUX BASES
+
+Pour réaliser l'appariement des deux bases de données, brevets et emploi, nous avons utilisé la fonction full_join en nous appuyant sur la variable commune firm_name.
+```{r}
+base_brevets <- read_csv("DATA/base_brevets.csv", show_col_types = FALSE)
+base_emp <- read_csv("DATA/base_emp.csv", show_col_types = FALSE)
+
+```
+
+
+```{r}
+base_emp_inno <- full_join(base_brevets, base_emp, by = "firm_name")
+
+# Vérification des premières lignes
+head(base_emp_inno)
+
+``` 
+

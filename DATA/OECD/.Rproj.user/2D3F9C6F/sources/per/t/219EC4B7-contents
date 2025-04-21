@@ -1,0 +1,148 @@
+---
+MOIELWAY NGARTI Israël
+title: "Brevets"
+output: html_document
+date: "2024-10-31"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+#Importation des données
+data1 <- read.csv("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\OECD\\EPO_App_reg_small.txt", header = TRUE)
+```{r}
+
+data2 <- read.csv("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\OECD\\EPO_IPC_small.txt", header = TRUE)
+
+a<- read.table("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_A_title_list_20120101.txt", header = TRUE, sep = "\t", fill = TRUE)
+b<- read.table("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_B_title_list_20120101.txt", header = TRUE, sep = "\t", fill = TRUE)
+c<- read.table("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_C_title_list_20120101.txt", header = TRUE, sep = "\t", fill = TRUE)
+d<- read.table("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_D_title_list_20120101.txt", header = TRUE, sep = "\t", fill = TRUE)
+e<- read.table("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_E_title_list_20120101.txt", header = TRUE, sep = "\t", fill = TRUE)
+f<- read.table("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_F_title_list_20120101.txt", header = TRUE, sep = "\t", fill = TRUE)
+g<- read.table("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_G_title_list_20120101.txt", header = TRUE, sep = "\t", fill = TRUE)
+h<- read.table("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101\\EN_ipc_section_H_title_list_20120101.txt", header = TRUE, sep = "\t", fill = TRUE)
+
+#"C:\Users\israe\OneDrive\Bureau\Github\Projets M1\R remediation\EN_ipc_title_list_20120101\EN_ipc_section_A_title_list_20120101.txt"
+```
+```{r}
+# Fusion des deux bases de données
+data_f <- merge(data1, data2, by = "appln_id", all = TRUE)
+
+# Agrégation des données pour obtenir une seule ligne par entreprise
+
+
+base_brevets <- data_f %>%
+  group_by(appln_id) %>%
+  summarise(
+    n_patents = sum(n_patents, na.rm = TRUE),
+    ipc_main_code = first(ipc_main_code),
+    ipc_main_desc = first(ipc_main_desc),
+    ipc_second_code = first(ipc_second_code),
+    ipc_second_desc = first(ipc_second_desc),
+    addr_city_main = first(addr_city_main),
+    addr_dept_main = first(addr_dept_main)
+  ) %>%
+  rename(
+    nom_entreprise = firm_name,
+    nombre_brevets = n_patents,
+    code_classe_IPC_principale = ipc_main_code,
+    desc_classe_IPC_principale = ipc_main_desc,
+    code_classe_IPC_seconde = ipc_second_code,
+    desc_classe_IPC_seconde = ipc_second_desc,
+    ville_principale = addr_city_main,
+    departement_principal = addr_dept_main
+  )
+ 
+names(data_f)
+# Afficher les premières lignes pour vérification
+head(base_brevets)
+
+```
+```{r}
+# Charger les bibliothèques nécessaires
+library(dplyr)
+library(stringr)
+
+# Importer les données
+app_data <- read.delim("chemin/vers/EPO_APP_REG.txt", header = TRUE)
+ipc_data <- read.delim("chemin/vers/EPO_IPC.txt", header = TRUE)
+ipc_titles <- read.delim("C:\\Users\\israe\\OneDrive\\Bureau\\Github\\Projets M1\\R remediation\\EN_ipc_title_list_20120101", header = TRUE)
+
+# Filtrer les entreprises françaises et les brevets déposés entre 2010 et 2020
+data_f <- data_f %>%
+  filter(ctry_code == "FR")
+
+data_f <- data_f %>%
+  filter(prio_year >= 2010 & prio_year <= 2020)
+
+
+# Extraire l'IPC-4 de chaque code IPC-14
+data_f <- data_f  %>%
+  mutate(IPC_4 = substr(IPC, 1, 4))
+
+# Calculer les codes IPC principaux pour chaque entreprise
+ipc_summary <- data_f %>%
+  group_by(app_name) %>%
+  summarise(
+    ipc_main_code = names(sort(table(IPC_4), decreasing = TRUE)[1]),
+    ipc_second_code = names(sort(table(IPC_4), decreasing = TRUE)[2])
+  )
+
+# Ajouter les descriptions d'IPC
+ipc_summary <- ipc_summary %>%
+  left_join(ipc_titles, by = c("ipc_main_code" = "Column_1")) %>%
+  rename(ipc_main_desc = Column_2) %>%
+  left_join(ipc_titles, by = c("ipc_second_code" = "Column_1")) %>%
+  rename(ipc_second_desc = Column_2)
+
+# Calculer les villes et départements principaux pour chaque entreprise
+
+
+addr_summary <- data_f %>%
+  group_by(app_name) %>%
+  summarise(
+    addr_city_main = names(sort(table(city), decreasing = TRUE)[1]),
+    addr_dept_main = ifelse(
+      all(is.na(postal_code)), 
+      "Inconnu", 
+      names(sort(table(postal_code), decreasing = TRUE)[1])
+    )
+  )
+
+
+
+# Calculer le nombre de brevets par entreprise
+patent_counts <- data_f %>%
+  group_by(app_name) %>%
+  summarise(n_patents = n())
+
+# Fusionner toutes les informations dans `base_brevets`
+base_brevets <- patent_counts %>%
+  left_join(ipc_summary, by = "app_name") %>%
+  left_join(addr_summary, by = "app_name") %>%
+  rename(
+    firm_name = app_name,
+    nom_entreprise = app_name,
+    nombre_brevets = n_patents,
+    ville_principale = addr_city_main,
+    departement_principal = addr_dept_main,
+    code_classe_IPC_principale = ipc_main_code,
+    desc_classe_IPC_principale = ipc_main_desc,
+    code_classe_IPC_seconde = ipc_second_code,
+    desc_classe_IPC_seconde = ipc_second_desc
+  )
+
+# Afficher les premières lignes pour vérification
+head(base_brevets)
+
+```
+
+
+

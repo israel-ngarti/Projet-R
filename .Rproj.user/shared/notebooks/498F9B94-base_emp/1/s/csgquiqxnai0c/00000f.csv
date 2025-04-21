@@ -1,0 +1,2 @@
+"0","# Exportation de la base_emp_inno au format CSV"
+"0","write.csv(base_emp_inno, ""base_emp_inno.csv"", row.names = FALSE)"

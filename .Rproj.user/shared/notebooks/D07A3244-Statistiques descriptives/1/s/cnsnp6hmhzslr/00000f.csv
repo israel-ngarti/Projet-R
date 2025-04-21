@@ -1,0 +1,75 @@
+"0",""
+"0","library(dplyr) "
+"2","Avis : le package ‘dplyr’ a été compilé avec la version R 4.4.2"
+"2","
+Attachement du package : ‘dplyr’
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:stats’:
+
+    filter, lag
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(readr)"
+"2","Avis : le package ‘readr’ a été compilé avec la version R 4.4.2"
+"0","library(stringr)"
+"2","Avis : le package ‘stringr’ a été compilé avec la version R 4.4.2"
+"0","library(tidyr)"
+"2","Avis : le package ‘tidyr’ a été compilé avec la version R 4.4.2"
+"0","library(stringi)"
+"0","library(data.table)"
+"2","Avis : le package ‘data.table’ a été compilé avec la version R 4.4.2"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"
+"2","data.table 1.16.2 using 6 threads (see ?getDTthreads).  "
+"2","Latest news: r-datatable.com
+"
+"2","
+Attachement du package : ‘data.table’
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:dplyr’:
+
+    between, first, last
+
+"
+"0","library(knitr)  "
+"0","library(kableExtra) "
+"2","Avis : le package ‘kableExtra’ a été compilé avec la version R 4.4.2"
+"2","
+Attachement du package : ‘kableExtra’
+
+"
+"2","L'objet suivant est masqué depuis ‘package:dplyr’:
+
+    group_rows
+
+"
+"0","library(wordcloud)"
+"2","Avis : le package ‘wordcloud’ a été compilé avec la version R 4.4.2"
+"2","Le chargement a nécessité le package : RColorBrewer
+"
+"0","library(tidytext)"
+"2","Avis : le package ‘tidytext’ a été compilé avec la version R 4.4.2"
+"0","library(ggplot2)"
+"0","library(wordcloud2)"
+"2","Avis : le package ‘wordcloud2’ a été compilé avec la version R 4.4.2"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"
+"0","library(RColorBrewer)"
+"0","library(viridis)"
+"2","Avis : le package ‘viridis’ a été compilé avec la version R 4.4.2"
+"2","Le chargement a nécessité le package : viridisLite
+"
+"0","library(tidytext)"
+"0","library(stopwords)"
+"2","Avis : le package ‘stopwords’ a été compilé avec la version R 4.4.2"

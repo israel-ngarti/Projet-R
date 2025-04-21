@@ -1,0 +1,4 @@
+"0","# 3. Suppression des entreprises proposant des freelances"
+"0","emp_offers_clean <- emp_offers_clean %>%"
+"0","  filter(!if_any(c(entreprise, intitule_poste), "
+"0","                 ~ str_detect(., regex(""freelance"", ignore_case = TRUE))))  "

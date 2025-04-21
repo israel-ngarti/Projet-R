@@ -1,0 +1,15 @@
+name: "analyse-brevets-emploi"
+output_dir: "data"  # Dossier où le site sera généré
+navbar:
+  title: "Analyse Brevets & Emploi"
+  left:
+    - text: "Accueil"
+      href: index.html
+    - text: "Statistiques descriptives"
+      href: stats.html
+    - text: "Analyse des données"
+      href: analyse.html
+output:
+  html_document:
+    theme: cerulean  # Thème Bootstrap
+    highlight: default

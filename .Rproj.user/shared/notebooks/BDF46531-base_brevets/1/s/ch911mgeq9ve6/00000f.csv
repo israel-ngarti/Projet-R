@@ -1,0 +1,2 @@
+"0","# Création d'une table des IPC uniques"
+"0","ipc_brevets_unique <- ent_brevets_10_20 %>% distinct()"

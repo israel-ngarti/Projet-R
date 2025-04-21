@@ -1,0 +1,22 @@
+"0","base_brevets <- patent_counts %>%
+  left_join(ipc_summary, by = ""app_name"") %>%
+  left_join(addr_summary, by = ""app_name"") %>%
+  rename(
+    firm_name = app_name,
+    nom_entreprise = app_name,
+    nombre_brevets = n_patents,
+    ville_principale = addr_city_main,
+    departement_principal = addr_dept_main,
+    code_classe_IPC_principale = ipc_main_code,
+    desc_classe_IPC_principale = ipc_main_desc,
+    code_classe_IPC_seconde = ipc_second_code,
+    desc_classe_IPC_seconde = ipc_second_desc
+  )
+"
+"1","[1m[33mError[39m in `rename()`:[22m
+[33m![39m Can't rename columns that don't exist.
+[31m✖[39m Column `ipc_main_desc` doesn't exist.
+Backtrace:
+[90m 1. [39m... %>% ...
+[90m 3. [39m[1m[94mdplyr:::rename.data.frame([39m[22m...[1m[94m)[39m[22m
+"

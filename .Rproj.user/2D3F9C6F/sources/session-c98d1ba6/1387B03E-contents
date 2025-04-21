@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-12-11" />
+
+<title>base_emp_inno</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
+<script src="site_libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
+<script src="site_libs/wordcloud2-0.0.1/hover.js"></script>
+<script src="site_libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Analyse Brevets & Emploi</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Accueil</a>
+</li>
+<li>
+  <a href="stats.html">Statistiques descriptives</a>
+</li>
+<li>
+  <a href="analyse.html">Analyse des données</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">base_emp_inno</h1>
+<h4 class="date">2024-12-11</h4>
+
+</div>
+
+
+<p>Chargement des packages</p>
+<pre class="r"><code>library(dplyr) 
+library(readr)
+library(stringr)
+library(tidyr)
+library(stringi)
+library(data.table)
+library(knitr)  
+library(kableExtra) </code></pre>
+<pre><code>## Warning: le package &#39;kableExtra&#39; a été compilé avec la version R 4.4.2</code></pre>
+<pre><code>## 
+## Attachement du package : &#39;kableExtra&#39;</code></pre>
+<pre><code>## L&#39;objet suivant est masqué depuis &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
+<pre class="r"><code>library(wordcloud)</code></pre>
+<pre><code>## Warning: le package &#39;wordcloud&#39; a été compilé avec la version R 4.4.2</code></pre>
+<pre><code>## Le chargement a nécessité le package : RColorBrewer</code></pre>
+<pre class="r"><code>library(tidytext)</code></pre>
+<pre><code>## Warning: le package &#39;tidytext&#39; a été compilé avec la version R 4.4.2</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(wordcloud2)</code></pre>
+<pre><code>## Warning: le package &#39;wordcloud2&#39; a été compilé avec la version R 4.4.2</code></pre>
+<pre class="r"><code>library(RColorBrewer)
+library(viridis)</code></pre>
+<pre><code>## Warning: le package &#39;viridis&#39; a été compilé avec la version R 4.4.2</code></pre>
+<pre><code>## Le chargement a nécessité le package : viridisLite</code></pre>
+<pre class="r"><code>library(tidytext)
+library(stopwords)</code></pre>
+<pre><code>## Warning: le package &#39;stopwords&#39; a été compilé avec la version R 4.4.2</code></pre>
+<p>Importation des données</p>
+<pre class="r"><code>base_emp &lt;- read_csv(&quot;data/base_emp.csv&quot;)</code></pre>
+<pre><code>## Rows: 701 Columns: 7
+## ── Column specification ──────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (3): entreprise, sector_main, top_skill_req
+## dbl (4): n_offres, avg_req_exp, avg_wage, addr_dept_main
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>base_brevets &lt;- read_csv(&quot;data/base_brevets.csv&quot;)</code></pre>
+<pre><code>## Rows: 8237 Columns: 8
+## ── Column specification ──────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (6): firm_name, ipc_main_code, ipc_main_desc, ipc_second_code, ipc_secon...
+## dbl (2): n_patents, addr_dept_main
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Pour simplifier l’appariement des deux bases de données, nous avons
+renommé la colonne “entreprise” de la base emploi en “firm_name” afin
+d’assurer une correspondance homogène entre les deux jeux de
+données.</p>
+<pre class="r"><code># Renommer la colonne entreprise en firm_name
+base_emp &lt;- base_emp %&gt;%
+  rename(firm_name = entreprise)</code></pre>
+<p>Pour réaliser l’appariement des deux bases de données, brevets et
+emploi, nous avons utilisé la fonction full_join en nous appuyant sur la
+variable commune firm_name.</p>
+<pre class="r"><code>base_emp_inno &lt;- full_join(base_brevets, base_emp, by = &quot;firm_name&quot;)</code></pre>
+<pre><code>## Warning in full_join(base_brevets, base_emp, by = &quot;firm_name&quot;): Detected an unexpected many-to-many relationship
+## between `x` and `y`.
+## ℹ Row 5573 of `x` matches multiple rows in `y`.
+## ℹ Row 517 of `y` matches multiple rows in `x`.
+## ℹ If a many-to-many relationship is expected, set
+##   `relationship = &quot;many-to-many&quot;` to silence this
+##   warning.</code></pre>
+<pre class="r"><code># Vérification des premières lignes
+head(base_emp_inno)</code></pre>
+<pre><code>## # A tibble: 6 × 14
+##   firm_name                n_patents ipc_main_code ipc_main_desc ipc_second_code
+##   &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;          
+## 1 &#39;add-one&#39;                        1 A62B          DEVICES       &lt;NA&gt;           
+## 2 &#39;apollon solar&#39;                  9 H01L          SEMICONDUCTO… &lt;NA&gt;           
+## 3 &#39;s.a.g.a.c.e.&#39; services…         1 B09B          DISPOSAL OF … &lt;NA&gt;           
+## 4 1/4 vin                          4 B65B          MACHINES      &lt;NA&gt;           
+## 5 10-vins                          1 B01F          MIXING        &lt;NA&gt;           
+## 6 1st surgiconcept                 2 A61B          DIAGNOSIS; S… A61L           
+## # ℹ 9 more variables: ipc_second_desc &lt;chr&gt;, addr_city_main &lt;chr&gt;,
+## #   addr_dept_main.x &lt;dbl&gt;, n_offres &lt;dbl&gt;, sector_main &lt;chr&gt;,
+## #   avg_req_exp &lt;dbl&gt;, top_skill_req &lt;chr&gt;, avg_wage &lt;dbl&gt;,
+## #   addr_dept_main.y &lt;dbl&gt;</code></pre>
+<pre class="r"><code># Exportation de la base_emp_inno au format CSV
+write.csv(base_emp_inno, &quot;base_emp_inno.csv&quot;, row.names = FALSE)</code></pre>
+<p>STATISTIQUES DESCRIPTIVES</p>
+<p>Emploi</p>
+<pre class="r"><code>#n_patents
+
+stat_n_patent&lt;-base_brevets %&gt;%
+  summarise(
+    Moyenne = mean(n_patents, na.rm = TRUE),
+    Ecart_Type = sd(n_patents, na.rm = TRUE),
+    Valeurs_Manquantes = sum(is.na(n_patents)),
+    Minimum=min(n_patents,na.rm=TRUE),
+    Maximum=max(n_patents,na.rm=TRUE))
+# Création d&#39;un tableau HTML stylisé
+kable(stat_n_patent, format = &quot;html&quot;, caption = &quot;Statistiques descriptives de n_patents&quot;) %&gt;%
+  kable_styling(full_width = FALSE, position = &quot;center&quot;, bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Statistiques descriptives de n_patents
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Moyenne
+</th>
+<th style="text-align:right;">
+Ecart_Type
+</th>
+<th style="text-align:right;">
+Valeurs_Manquantes
+</th>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+11.31783
+</td>
+<td style="text-align:right;">
+111.9308
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4870
+</td>
+</tr>
+</tbody>
+</table>
+<p>Cherchons les 5 entreprises ayant déposées le plus de brevets.</p>
+<pre class="r"><code># Trouver les 5 plus grandes valeurs pour la variable &quot;n_patent&quot; et garder la colonne firm_name
+top5_n_patents &lt;- base_brevets %&gt;%
+  arrange(desc(n_patents)) %&gt;%  # Trier par ordre décroissant de n_patent
+  slice_head(n = 5) %&gt;%  # Garde les 5 premières lignes
+  select(firm_name, n_patents)  # Sélectionner uniquement les colonnes firm_name et n_patent
+
+# Création d&#39;un tableau HTML stylisé
+kable(top5_n_patents, format = &quot;html&quot;, caption = &quot;Top 5 des enttreprises ayant déposées le plus de brevets&quot;) %&gt;%
+  kable_styling(full_width = FALSE, position = &quot;center&quot;, bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Top 5 des enttreprises ayant déposées le plus de brevets
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+firm_name
+</th>
+<th style="text-align:right;">
+n_patents
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+commissariat a l’energie atomique et aux energies alternatives
+</td>
+<td style="text-align:right;">
+4870
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cnrs
+</td>
+<td style="text-align:right;">
+4247
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alcatel
+</td>
+<td style="text-align:right;">
+3181
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+michelin
+</td>
+<td style="text-align:right;">
+2820
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+safran
+</td>
+<td style="text-align:right;">
+2379
+</td>
+</tr>
+</tbody>
+</table>
+<p>Pour identifier le top 5 des modalités les plus fréquentes parmi les
+variables de type caractère, nous avons défini une fonction appelée
+valeurs_frequentes. Cette fonction permet de compter les occurrences et
+d’extraire les 5 valeurs les plus représentées.</p>
+<pre class="r"><code># Fonction pour trouver les 5 valeurs les plus fréquentes pour les variables caractères
+valeurs_frequentes &lt;- function(data, variable, exclude_na = TRUE, top_n = 5) {
+  # Exclure les NA si demandé
+  if (exclude_na) {
+    data &lt;- data %&gt;% filter(!is.na(.data[[variable]]))
+  }
+
+  data %&gt;%
+    group_by(across(all_of(variable))) %&gt;%
+    summarise(count = n(), .groups = &quot;drop&quot;) %&gt;%
+    arrange(desc(count)) %&gt;%
+    slice_head(n = 5)
+}</code></pre>
+<pre class="r"><code>top_ipc &lt;- valeurs_frequentes(base_brevets, &quot;ipc_main_desc&quot;)
+top_villes &lt;- valeurs_frequentes(base_brevets, &quot;addr_city_main&quot;)
+top_depts &lt;- valeurs_frequentes(base_brevets, &quot;addr_dept_main&quot;)
+top_sector &lt;- valeurs_frequentes(base_emp_inno, &quot;sector_main&quot;,exclude_na=TRUE, top_n=5)# Création d&#39;un tableau HTML stylisé
+
+# Étape 3 : Création du tableau HTML stylisé
+kable(top_ipc, format = &quot;html&quot;, caption = &quot;Top 5 des descriptions des IPC principaux les plus frequents&quot;) %&gt;%
+  kable_styling(full_width = FALSE, position = &quot;center&quot;, bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;responsive&quot;)) %&gt;%
+  row_spec(0, bold = TRUE)  # Mettre en gras la ligne des entêtes</code></pre>
+<table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Top 5 des descriptions des IPC principaux les plus frequents
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+ipc_main_desc
+</th>
+<th style="text-align:right;font-weight: bold;">
+count
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+DIAGNOSIS; SURGERY; IDENTIFICATION (analysing biological material G01N
+</td>
+<td style="text-align:right;">
+571
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPECIFIC THERAPEUTIC ACTIVITY OF CHEMICAL COMPOUNDS OR MEDICINAL
+PREPARATIONS
+</td>
+<td style="text-align:right;">
+553
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CONTAINERS FOR STORAGE OR TRANSPORT OF ARTICLES OR MATERIALS
+</td>
+<td style="text-align:right;">
+287
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FILTERS IMPLANTABLE INTO BLOOD VESSELS; PROSTHESES; DEVICES PROVIDING
+PATENCY TO
+</td>
+<td style="text-align:right;">
+278
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TRANSMISSION OF DIGITAL INFORMATION
+</td>
+<td style="text-align:right;">
+258
+</td>
+</tr>
+</tbody>
+</table>
+<p>Emploi</p>
+<pre class="r"><code>#n_offres
+
+stat_n_offres &lt;-base_emp %&gt;%
+  summarise(
+    Moyenne = mean(n_offres, na.rm = TRUE),
+    Ecart_Type = sd(n_offres, na.rm = TRUE),
+    Valeurs_Manquantes = sum(is.na(n_offres)),
+    Minimum=min(n_offres,na.rm=TRUE),
+    Maximum=max(n_offres,na.rm=TRUE)
+    )
+# Création d&#39;un tableau HTML stylisé
+kable(stat_n_offres, format = &quot;html&quot;, caption = &quot;Statistique n_offres&quot;) %&gt;%
+  kable_styling(full_width = FALSE, position = &quot;center&quot;, bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Statistique n_offres
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Moyenne
+</th>
+<th style="text-align:right;">
+Ecart_Type
+</th>
+<th style="text-align:right;">
+Valeurs_Manquantes
+</th>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+4.272468
+</td>
+<td style="text-align:right;">
+8.370608
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>#avg_wage
+
+stat_salaire&lt;-base_emp %&gt;%
+  summarise(
+    Moyenne = mean(avg_wage, na.rm = TRUE),
+    Ecart_Type = sd(avg_wage, na.rm = TRUE),
+    Valeurs_Manquantes = sum(is.na(avg_wage)),
+    Minimum=min(avg_wage,na.rm=TRUE),
+    Maximum=max(avg_wage,na.rm=TRUE))
+# Création d&#39;un tableau HTML stylisé
+kable(stat_salaire, format = &quot;html&quot;, caption = &quot;Statistique salaire moyen&quot;) %&gt;%
+  kable_styling(full_width = FALSE, position = &quot;center&quot;, bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Statistique salaire moyen
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Moyenne
+</th>
+<th style="text-align:right;">
+Ecart_Type
+</th>
+<th style="text-align:right;">
+Valeurs_Manquantes
+</th>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+53230.29
+</td>
+<td style="text-align:right;">
+15090.82
+</td>
+<td style="text-align:right;">
+558
+</td>
+<td style="text-align:right;">
+9600
+</td>
+<td style="text-align:right;">
+1e+05
+</td>
+</tr>
+</tbody>
+</table>
+<p>base_emp_inno</p>
+<pre class="r"><code>#n_offres
+
+stat_n_offres_f&lt;-base_emp_inno %&gt;%
+  summarise(
+    Moyenne = mean(n_offres, na.rm = TRUE),
+    Ecart_Type = sd(n_offres, na.rm = TRUE),
+    Valeurs_Manquantes = sum(is.na(n_offres)),
+    Minimum=min(n_offres,na.rm=TRUE),
+    Maximum=max(n_offres,na.rm=TRUE)
+)
+# Création d&#39;un tableau HTML stylisé
+kable(stat_n_offres_f, format = &quot;html&quot;, caption = &quot;Statistique n_offres de la fusion des bases&quot;) %&gt;%
+  kable_styling(full_width = FALSE, position = &quot;center&quot;, bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Statistique n_offres de la fusion des bases
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Moyenne
+</th>
+<th style="text-align:right;">
+Ecart_Type
+</th>
+<th style="text-align:right;">
+Valeurs_Manquantes
+</th>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+4.27027
+</td>
+<td style="text-align:right;">
+8.35882
+</td>
+<td style="text-align:right;">
+8187
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>#n_avg
+stat_salaire_f&lt;-base_emp_inno %&gt;%
+  summarise(
+    Moyenne = mean(avg_wage, na.rm = TRUE),
+    Ecart_Type = sd(avg_wage, na.rm = TRUE),
+    Valeurs_Manquantes = sum(is.na(avg_wage)),
+    Minimum=min(avg_wage,na.rm=TRUE),
+    Maximum=max(avg_wage,na.rm=TRUE)
+)
+# Création d&#39;un tableau HTML stylisé
+kable(stat_salaire_f, format = &quot;html&quot;, caption = &quot;Statistique salaire moyen de la fusion des  bases&quot;) %&gt;%
+  kable_styling(full_width = FALSE, position = &quot;center&quot;, bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Statistique salaire moyen de la fusion des bases
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Moyenne
+</th>
+<th style="text-align:right;">
+Ecart_Type
+</th>
+<th style="text-align:right;">
+Valeurs_Manquantes
+</th>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+53230.29
+</td>
+<td style="text-align:right;">
+15090.82
+</td>
+<td style="text-align:right;">
+8747
+</td>
+<td style="text-align:right;">
+9600
+</td>
+<td style="text-align:right;">
+1e+05
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>#n_patents
+stat_n_patents_f&lt;-base_emp_inno %&gt;%
+  summarise(
+    Moyenne = mean(n_patents, na.rm = TRUE),
+    Ecart_Type = sd(n_patents, na.rm = TRUE),
+    Valeurs_Manquantes = sum(is.na(n_patents)),
+    Minimum=min(n_patents,na.rm=TRUE),
+    Maximum=max(n_patents,na.rm=TRUE)
+)
+# Création d&#39;un tableau HTML stylisé
+kable(stat_n_patents_f, format = &quot;html&quot;, caption = &quot;Statistique n_patents de la table fusionnée&quot;) %&gt;%
+  kable_styling(full_width = FALSE, position = &quot;center&quot;, bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Statistique n_patents de la table fusionnée
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Moyenne
+</th>
+<th style="text-align:right;">
+Ecart_Type
+</th>
+<th style="text-align:right;">
+Valeurs_Manquantes
+</th>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+11.43415
+</td>
+<td style="text-align:right;">
+112.4239
+</td>
+<td style="text-align:right;">
+651
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4870
+</td>
+</tr>
+</tbody>
+</table>
+<p>#ANALYSE DE DONNEES</p>
+<div id="relation-entre-le-nombre-de-brevets-et-les-offres-demploies"
+class="section level2">
+<h2>Relation entre le nombre de brevets et les offres d’emploies</h2>
+<pre class="r"><code># Nettoyage des données : suppression des valeurs manquantes ou aberrantes
+base_emp_inno_clean &lt;- base_emp_inno %&gt;%
+  filter(!is.na(n_offres) &amp; !is.na(n_patents) &amp; n_patents &gt; 0 &amp; n_offres &gt; 0)
+
+# Création du graphique
+ggplot(base_emp_inno_clean, aes(x = n_patents, y = n_offres)) +
+  geom_point(aes(color = n_patents, size = n_offres), alpha = 0.8) + # Points améliorés
+ 
+  labs(
+    title = &quot;Relation entre le nombre de brevets déposés et les offres d&#39;emploi&quot;,
+    subtitle = &quot;Nuage de points avec courbe de tendance lissée&quot;,
+    x = &quot;Nombre de brevets&quot;,
+    y = &quot;Nombre d&#39;offres d&#39;emploi&quot;,
+  size = &quot;Offres d&#39;emploi&quot;,
+    color = &quot;Nombre de brevets&quot;
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 11, face = &quot;bold&quot;, hjust = 0.5),
+    plot.subtitle = element_text(size =11, hjust = 0.5),
+    axis.text = element_text(size = 11),
+    legend.position = &quot;right&quot;
+  )</code></pre>
+<p><img src="base_emp_inno_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+Ce graphique montre une relation non linéaire entre le nombre de brevets
+déposés et les offres d’emploi. La tendance indique que les entreprises
+avec un nombre modéré de brevets enregistrent le plus d’offres d’emploi.
+En revanche, celles avec un très grand nombre de brevets semblent
+recruter moins. Cela suggère que l’innovation (brevets) n’est pas
+toujours directement corrélée à la demande en compétences.</p>
+<p>#Relation entre Innovation (Nombre de Brevets) et les salaires
+moyens</p>
+<pre class="r"><code># Nettoyage des données : suppression des valeurs manquantes ou aberrantes
+base_emp_inno_clean &lt;- base_emp_inno %&gt;%
+  filter(!is.na(avg_wage) &amp; !is.na(n_patents) &amp; avg_wage &gt; 0 &amp; n_patents &gt; 0)
+
+# Création du graphique
+ggplot(base_emp_inno_clean, aes(x = n_patents, y = avg_wage)) +
+  geom_point(aes(color = n_patents, size = avg_wage), alpha = 0.8) + # Points améliorés
+  scale_color_viridis_c(option = &quot;plasma&quot;, name = &quot;Nombre de brevets&quot;) + # Couleur dégradée
+  scale_size_continuous(range = c(3, 10), name = &quot;Salaire moyen&quot;) + # Taille des points
+  geom_smooth(method = &quot;loess&quot;, color = &quot;red&quot;, se = TRUE, fill = &quot;pink&quot;, linetype = &quot;dashed&quot;) + # Tendance lissée
+  labs(
+    title = &quot;Relation entre le nombre de brevets et les salaires moyens&quot;,
+    subtitle = &quot;Nuage de points avec courbe de tendance lissée&quot;,
+    x = &quot;Nombre de brevets&quot;,
+    y = &quot;Salaire moyen&quot;
+  ) +
+  theme_minimal(base_size = 8) + # Thème minimaliste épuré
+  theme(
+    plot.title = element_text(hjust = 0.5, face = &quot;bold&quot;),
+    plot.subtitle = element_text(hjust = 0.5, face = &quot;italic&quot;),
+    legend.position = &quot;right&quot;
+  )</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+## : span too small.  fewer data values than degrees of freedom.</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+## : pseudoinverse used at 210.92</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+## : neighborhood radius 2609.1</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+## : reciprocal condition number 0</code></pre>
+<pre><code>## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+## : There are other near singularities as well. 2.094e+06</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
+## else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : span too small.  fewer
+## data values than degrees of freedom.</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
+## else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used at
+## 210.92</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
+## else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
+## 2609.1</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
+## else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal condition
+## number 0</code></pre>
+<pre><code>## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
+## else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : There are other near
+## singularities as well. 2.094e+06</code></pre>
+<pre><code>## Warning in max(ids, na.rm = TRUE): aucun argument pour max ; -Inf est renvoyé</code></pre>
+<p><img src="base_emp_inno_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Ce graphique représente la relation entre le nombre de brevets
+déposés et les salaires moyens. La tendance observée est non linéaire,
+avec une forme en U inversé. Les entreprises déposant peu de brevets
+affichent des salaires moyens élevés, tandis que celles ayant un nombre
+modéré de brevets connaissent une diminution notable des salaires. En
+revanche, pour les entreprises très innovantes (nombre de brevets
+supérieur à 4000), les salaires augmentent à nouveau. Cela suggère une
+relation complexe entre innovation et rémunération, probablement
+influencée par d’autres facteurs comme la taille de l’entreprise ou le
+secteur d’activité.</p>
+</div>
+<div id="par-secteur" class="section level1">
+<h1>par secteur</h1>
+<pre class="r"><code># Graphique à barres horizontales
+
+
+ggplot(top_sector, aes(x = reorder(sector_main, count), y = count, fill = sector_main)) +
+  geom_bar(stat = &quot;identity&quot;, width = 0.7, show.legend = FALSE) +
+  coord_flip() +  # Pour des barres horizontales
+  labs(
+    title = &quot;Top 5 des Secteurs ayant fait beaucoup d&#39;offre d&#39;emploi&quot;,
+    x = &quot;Secteurs&quot;,
+    y = &quot;Nombre d&#39;Entreprises&quot;
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 11, face = &quot;bold&quot;, hjust = 0.5),
+    axis.text.y = element_text(size = 10),
+    axis.text.x = element_text(size = 10),
+    axis.title = element_text(size = 12)
+  )</code></pre>
+<p><img src="base_emp_inno_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Ce graphique montre les 5 secteurs qui ont généré le plus d’offres
+d’emploi. En tête, le secteur informatique et ESN domine largement, ce
+qui reflète la forte demande pour des compétences technologiques et
+numériques. Juste derrière, les Services aux Entreprises occupent la
+deuxième place, prouvant l’importance des services professionnels.
+Ensuite, on retrouve la Banque, Assurance, Finance, ainsi que la
+Distribution et le Commerce de gros, qui restent des secteurs essentiels
+en termes de création d’emplois. Enfin, le secteur Média, Internet,
+Communication clôture le top 5, confirmant son rôle dans la demande liée
+au numérique. La forte disparité avec l’informatique met bien en
+évidence l’importance de la transformation digitale dans le marché de
+l’emploi.</p>
+<p>Graphique des 5 meilleurs codes IPC par nombre de brevets</p>
+<pre class="r"><code>top_ipc_code &lt;- valeurs_frequentes(base_brevets, &quot;ipc_main_code&quot;)
+# Graphique à barres verticales 
+ggplot(top_ipc_code, aes(x = reorder(ipc_main_code, -count), y = count)) +
+  geom_bar(stat = &quot;identity&quot;, fill = &quot;steelblue&quot;, width = 0.7) +  
+  geom_text(aes(label = count), vjust = -0.5, size = 4) +  
+  labs(
+    title = &quot;Top 5 des Codes IPC par Nombre de Brevets&quot;,
+    x = &quot;Codes IPC&quot;,
+    y = &quot;Nombre de Brevets&quot;
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 11, face = &quot;bold&quot;, hjust = 0.5),
+    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 10),
+    axis.title = element_text(size = 12)
+  )</code></pre>
+<p><img src="base_emp_inno_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Ce graphique présente les 5 principaux codes IPC par nombre de
+brevets déposés. Les deux premiers codes, A61B et A61P, se démarquent
+nettement. A61B (technologies médicales) et A61P (préparations
+thérapeutiques) montrent une forte activité dans les secteurs de la
+santé et de la pharmacie, suggérant une demande élevée en compétences
+dans la recherche médicale et l’ingénierie biomédicale. B65D (emballages
+et conteneurs) et A61F (prothèses et implants) indiquent une présence
+notable d’innovations en logistique et dans les dispositifs médicaux.
+Enfin, H04L (transmission de données numériques) reflète l’importance
+des technologies de l’information et des télécommunications, où la
+demande en compétences numériques telles que réseaux et cybersécurité
+est forte. Ce graphique met en évidence une concentration des brevets
+dans les secteurs médicaux, pharmaceutiques et technologiques, suggérant
+que ces domaines sont moteurs d’innovation et fortement associés à une
+demande croissante de profils qualifiés dans la science des données, la
+R&amp;D et l’ingénierie spécialisée.</p>
+<p>##La relation entre les meilleues compétences demandées et les
+entreprises qui deposent des brevets</p>
+<div id="top-10-des-compétences-associées-avec-linovation"
+class="section level3">
+<h3>Top 10 des compétences associées avec l’inovation</h3>
+<pre class="r"><code># Nettoyage des compétences et séparation des phrases
+top_skills &lt;- base_emp_inno %&gt;%
+  filter(!is.na(top_skill_req), n_patents &gt; 0) %&gt;%  # Exclure NA et brevets nuls
+  separate_rows(top_skill_req, sep = &quot;[,;/|]&quot;) %&gt;%  # Séparer les compétences par délimiteurs courants
+  mutate(
+    top_skill_req = str_to_lower(top_skill_req),      # Convertir en minuscules
+    top_skill_req = str_replace_all(top_skill_req, &quot;[[:punct:]]&quot;, &quot;&quot;),  # Supprimer la ponctuation
+    top_skill_req = str_squish(top_skill_req)         # Supprimer les espaces inutiles
+  ) %&gt;%
+  filter(
+    str_count(top_skill_req, &quot;\\w+&quot;) &lt;= 3,  # Garder uniquement les phrases de 3 mots max
+    !str_detect(top_skill_req, &quot;\\b(autonome|équipe)\\b.*\\1&quot;)  # Exclure les répétitions
+  ) %&gt;%
+  group_by(top_skill_req) %&gt;%
+  summarise(total_patents = sum(n_patents, na.rm = TRUE), .groups = &quot;drop&quot;) %&gt;%
+  arrange(desc(total_patents)) %&gt;%
+  slice_head(n = 10)  # Garder les 10 compétences principales
+kable(top_skills, format = &quot;html&quot;, caption = &quot;Top 10 des compétences les plus demandées en fonction n_patents&quot;) %&gt;%
+  kable_styling(full_width = FALSE, position = &quot;center&quot;, bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Top 10 des compétences les plus demandées en fonction n_patents
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+top_skill_req
+</th>
+<th style="text-align:right;">
+total_patents
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+équipe
+</td>
+<td style="text-align:right;">
+14154
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+git
+</td>
+<td style="text-align:right;">
+8650
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+communication
+</td>
+<td style="text-align:right;">
+5957
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+python
+</td>
+<td style="text-align:right;">
+5389
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+anglais
+</td>
+<td style="text-align:right;">
+4825
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+statistique
+</td>
+<td style="text-align:right;">
+4389
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+programmation
+</td>
+<td style="text-align:right;">
+4363
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gestion de projets
+</td>
+<td style="text-align:right;">
+4284
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+modélisation
+</td>
+<td style="text-align:right;">
+4284
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+contrôle de version
+</td>
+<td style="text-align:right;">
+4247
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Graphique : Barplot propre
+ggplot(top_skills, aes(x = reorder(top_skill_req, total_patents), y = total_patents)) +
+  geom_col(fill = &quot;steelblue&quot;, width = 0.7) +
+  coord_flip() +
+  labs(
+    title = &quot;Top 10 des Compétences Associées à l&#39;Innovation&quot;,
+    x = &quot;Compétences&quot;,
+    y = &quot;Nombre Total de Brevets&quot;
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;, hjust = 0.5, color = &quot;darkblue&quot;),
+    axis.text.y = element_text(size = 12, face = &quot;bold&quot;),
+    axis.text.x = element_text(size = 12),
+    axis.title = element_text(size = 11, face = &quot;bold&quot;)
+  )</code></pre>
+<p><img src="base_emp_inno_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<pre class="r"><code># Génération du Wordcloud
+wordcloud_data &lt;- top_skills %&gt;%
+  select(top_skill_req, total_patents) %&gt;%
+  rename(word = top_skill_req, freq = total_patents)
+
+# Afficher le Wordcloud
+wordcloud2(wordcloud_data, size = 0.7, color = &quot;random-light&quot;, backgroundColor = &quot;white&quot;)</code></pre>
+<div class="wordcloud2 html-widget html-fill-item" id="htmlwidget-fb6b040992a7b2a5135a" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-fb6b040992a7b2a5135a">{"x":{"word":["équipe","git","communication","python","anglais","statistique","programmation","gestion de projets","modélisation","contrôle de version"],"freq":[14154,8650,5957,5389,4825,4389,4363,4284,4284,4247],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-light","minSize":0,"weightFactor":0.00890207715133531,"backgroundColor":"white","gridSize":0,"minRotation":-0.7853981633974483,"maxRotation":0.7853981633974483,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<p>Ce graphique met en évidence les 10 compétences les plus associées à
+l’innovation, mesurées par le nombre total de brevets. La compétence
+“équipe” se distingue comme la plus importante, soulignant l’importance
+du travail collaboratif dans les entreprises innovantes. Des compétences
+techniques comme “git”, “python”, et “contrôle de gersion” reflètent le
+rôle crucial des outils de programmation et de gestion de code. Par
+ailleurs, des compétences transversales comme la “communication” et la
+“gestion de projets” démontrent leur pertinence dans la coordination des
+efforts d’innovation. Les compétences analytiques, telles que la
+“statistique” et la “modélisation”, sont également essentielles pour les
+développements avancés. Enfin, la maîtrise de l’anglais confirme son
+importance dans les environnements scientifiques et technologiques
+globaux.</p>
+</div>
+<div id="top-10-des-compétences-pondérées-avec-le-salaire"
+class="section level2">
+<h2>Top 10 des compétences pondérées avec le salaire</h2>
+<pre class="r"><code># Nettoyage et préparation des données pour le wordcloud
+wordcloud_skills &lt;- base_emp_inno %&gt;%
+  filter(!is.na(top_skill_req), !is.na(avg_wage), avg_wage &gt; 0) %&gt;%  # Exclure NA et salaires &lt;= 0
+  separate_rows(top_skill_req, sep = &quot;[,;/|]&quot;) %&gt;%  # Séparer les compétences par délimiteurs courants
+  mutate(
+    top_skill_req = str_to_lower(top_skill_req),      # Convertir en minuscules
+    top_skill_req = str_replace_all(top_skill_req, &quot;[[:punct:]]&quot;, &quot;&quot;),  # Supprimer la ponctuation
+    top_skill_req = str_squish(top_skill_req)         # Supprimer les espaces inutiles
+  ) %&gt;%
+  filter(top_skill_req != &quot;&quot;, !is.na(top_skill_req)) %&gt;%  # Exclure les compétences vides ou NA
+  group_by(top_skill_req) %&gt;%
+  summarise(avg_wage = mean(avg_wage, na.rm = TRUE), .groups = &quot;drop&quot;) %&gt;%  # Moyenne des salaires
+  arrange(desc(avg_wage)) %&gt;%
+  slice_max(avg_wage, n = 50)  # Garder les 50 compétences les mieux rémunérées
+
+# Préparation des données pour le wordcloud
+wordcloud_data &lt;- wordcloud_skills %&gt;%
+  rename(word = top_skill_req, freq = avg_wage)  # Renommer pour wordcloud2
+
+# Création du Wordcloud sans NA
+wordcloud2(wordcloud_data, size = 0.8, color = &quot;random-light&quot;, backgroundColor=&quot;white&quot;)</code></pre>
+<div class="wordcloud2 html-widget html-fill-item" id="htmlwidget-f545b385f66da4af80fe" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-f545b385f66da4af80fe">{"x":{"word":["proactive","adaptabilité","collecte de données","compétences en présentation","gestion du temps","serieux","visualisation de donnée","créativité","résolution de problèmes","français","matplotlib","seaborn","team player","azure","google cloud","autonome","autonôme","hadoop","optimisation","aws","spark","communication","intelligence artificielle","nlp","statistique","collaboration","curiosité","modélisation","data visualization","forecasting","prévision","r studio","power bi","rapport","équipe","git","dataviz","python","proactif","excel","reporting","bases de donnée","sql","anglais","tableau","a","b testing","french","na","programmation"],"freq":[90000,87744,76372,75000,70000,70000,65914.66666666667,65000,63581.33333333334,61072,60000,60000,60000,59511.90476190476,58375,58152.22222222223,58152.22222222223,58100,57404.76190476191,57395.83333333334,57097.22222222223,57029.5,56857.14285714286,56666.66666666666,56263.7,56118.57575757576,55666.66666666666,55543.46153846154,55000,55000,55000,55000,54964,54792,54597.52132067728,54533.252228164,54333.33333333334,54047.21218847745,53850,53347.15476190476,53346.74725274726,53286.47619047619,52767.62121212121,52463.47222222222,51653.73529411765,50000,50000,50000,49875,49297.9898989899],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-light","minSize":0,"weightFactor":0.0016,"backgroundColor":"white","gridSize":0,"minRotation":-0.7853981633974483,"maxRotation":0.7853981633974483,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<pre class="r"><code># Afficher le Wordcloud
+wordcloud2(wordcloud_data, size = 0.7, color = &quot;random-light&quot;, backgroundColor = &quot;white&quot;)</code></pre>
+<div class="wordcloud2 html-widget html-fill-item" id="htmlwidget-57fca25fd06c3d99a0e0" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-57fca25fd06c3d99a0e0">{"x":{"word":["proactive","adaptabilité","collecte de données","compétences en présentation","gestion du temps","serieux","visualisation de donnée","créativité","résolution de problèmes","français","matplotlib","seaborn","team player","azure","google cloud","autonome","autonôme","hadoop","optimisation","aws","spark","communication","intelligence artificielle","nlp","statistique","collaboration","curiosité","modélisation","data visualization","forecasting","prévision","r studio","power bi","rapport","équipe","git","dataviz","python","proactif","excel","reporting","bases de donnée","sql","anglais","tableau","a","b testing","french","na","programmation"],"freq":[90000,87744,76372,75000,70000,70000,65914.66666666667,65000,63581.33333333334,61072,60000,60000,60000,59511.90476190476,58375,58152.22222222223,58152.22222222223,58100,57404.76190476191,57395.83333333334,57097.22222222223,57029.5,56857.14285714286,56666.66666666666,56263.7,56118.57575757576,55666.66666666666,55543.46153846154,55000,55000,55000,55000,54964,54792,54597.52132067728,54533.252228164,54333.33333333334,54047.21218847745,53850,53347.15476190476,53346.74725274726,53286.47619047619,52767.62121212121,52463.47222222222,51653.73529411765,50000,50000,50000,49875,49297.9898989899],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-light","minSize":0,"weightFactor":0.0014,"backgroundColor":"white","gridSize":0,"minRotation":-0.7853981633974483,"maxRotation":0.7853981633974483,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<p>Ce wordcloud montre les compétences les plus souvent associées aux
+salaires élevés, en fonction de leur importance relative. On remarque
+que des qualités comme la proactivité et l’adaptabilité prennent une
+grande place, ce qui prouve leur rôle clé dans les postes bien payés.
+Côté technique, des outils spécifiques comme AWS, Seaborn ou Excel sont
+aussi très valorisés, ce qui confirme que les compétences spécialisées
+sont essentielles. On retrouve également des compétences en IA,
+notamment le NLP (traitement du langage naturel), qui montrent
+l’importance des technologies innovantes. Les langues, comme le
+français, ont aussi leur importance, surtout dans des contextes
+internationaux. Enfin, des qualités personnelles comme l’autonomie et le
+sérieux sont clairement associées à de bons salaires, ce qui prouve que
+les entreprises recherchent un mix entre compétences techniques et
+qualités humaines</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

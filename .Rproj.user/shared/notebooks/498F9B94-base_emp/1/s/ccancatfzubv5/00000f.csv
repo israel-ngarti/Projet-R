@@ -1,0 +1,8 @@
+"0","# 1. Calcul du nombre d'offres par entreprise"
+"0","base_emp <- emp_offers_clean %>%"
+"0","  group_by(entreprise) %>%"
+"0","  summarise("
+"0","    firm_name = first(entreprise),"
+"0","    n_offres = n(),"
+"0","    .groups = ""drop"""
+"0","  )"

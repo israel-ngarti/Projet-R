@@ -1,0 +1,18 @@
+"0","base_emp <- read_csv(""data/base_emp.csv"")"
+"2","[1mRows: [22m[34m701[39m [1mColumns: [22m[34m7[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (3): entreprise, sector_main, top_skill_req
+[32mdbl[39m (4): n_offres, avg_req_exp, avg_wage, addr_dept_main"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","base_brevets <- read_csv(""data/base_brevets.csv"")"
+"2","[1mRows: [22m[34m8237[39m [1mColumns: [22m[34m8[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (6): firm_name, ipc_main_code, ipc_main_desc, ipc_second_code, ipc_second_desc, addr_city_main
+[32mdbl[39m (2): n_patents, addr_dept_main"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."

@@ -1,0 +1,8 @@
+"0",""
+"0","# Génération du Wordcloud"
+"0","wordcloud_data <- top_skills %>%"
+"0","  select(top_skill_req, total_patents) %>%"
+"0","  rename(word = top_skill_req, freq = total_patents)"
+"0",""
+"0","# Afficher le Wordcloud"
+"0","wordcloud2(wordcloud_data, size = 0.7, color = ""random-light"", backgroundColor = ""white"")"

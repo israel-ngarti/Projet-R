@@ -1,0 +1,7 @@
+"0","# Lecture des fichiers sans afficher les détails des colonnes"
+"0","base_emp <- read_csv(""data/base_emp.csv"", show_col_types = FALSE)"
+"0","base_brevets <- read_csv(""data/base_brevets.csv"", show_col_types = FALSE)"
+"0","base_emp_inno <- read_csv(""data/base_emp_inno.csv"", show_col_types = FALSE)"
+"2","Avis : [38;5;250mOne or more parsing issues, call `problems()` on your data frame for details, e.g.:
+  dat <- vroom(...)
+  problems(dat)[39m"
